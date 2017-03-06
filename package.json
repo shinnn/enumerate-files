@@ -1,0 +1,42 @@
+{
+  "name": "enumerate-files",
+  "version": "0.1.0",
+  "description": "List all files in a given directory",
+  "repository": "shinnn/enumerate-files",
+  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+  "scripts": {
+    "pretest": "eslint --fix --format=codeframe index.js test.js",
+    "test": "node --throw-deprecation test.js",
+    "coverage": "istanbul cover test.js"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "fs",
+    "file",
+    "list",
+    "enumerate",
+    "dir",
+    "readdir",
+    "set",
+    "iterable",
+    "promise",
+    "async"
+  ],
+  "dependencies": {
+    "es6-set": "^0.1.4",
+    "lodash": "^4.17.4",
+    "lstat-dir": "^0.1.0"
+  },
+  "devDependencies": {
+    "@shinnn/eslint-config-node-legacy": "^3.0.0",
+    "eslint": "^3.17.0",
+    "istanbul": "^0.4.5",
+    "tape": "^4.6.3"
+  },
+  "eslintConfig": {
+    "extends": "@shinnn/node-legacy"
+  }
+}
