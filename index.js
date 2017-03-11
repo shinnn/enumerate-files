@@ -4,12 +4,11 @@
 */
 'use strict';
 
-var ES6Set = require('es6-set');
 var lstatDir = require('lstat-dir');
 var toArray = require('lodash').toArray;
 
 function filterFiles(map) {
-  var filePaths = new ES6Set();
+  var filePaths = new Set();
 
   toArray(map).forEach(function(pathStatPair) {
     if (pathStatPair[1].isFile()) {
