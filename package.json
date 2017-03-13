@@ -26,16 +26,15 @@
     "async"
   ],
   "dependencies": {
-    "lodash": "^4.17.4",
     "lstat-dir": "^0.2.0"
   },
   "devDependencies": {
-    "@shinnn/eslint-config-node-legacy": "^3.0.0",
+    "@shinnn/eslint-config-node": "^3.0.0",
     "eslint": "^3.17.1",
     "istanbul": "^0.4.5",
     "tape": "^4.6.3"
   },
   "eslintConfig": {
-    "extends": "@shinnn/node-legacy"
+    "extends": "@shinnn/node"
   }
 }

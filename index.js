@@ -4,17 +4,16 @@
 */
 'use strict';
 
-var lstatDir = require('lstat-dir');
-var toArray = require('lodash').toArray;
+const lstatDir = require('lstat-dir');
 
 function filterFiles(map) {
-  var filePaths = new Set();
+  const filePaths = new Set();
 
-  toArray(map).forEach(function(pathStatPair) {
+  for (const pathStatPair of map) {
     if (pathStatPair[1].isFile()) {
       filePaths.add(pathStatPair[0]);
     }
-  });
+  }
 
   return filePaths;
 }
