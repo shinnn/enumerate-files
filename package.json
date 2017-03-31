@@ -26,11 +26,11 @@
     "async"
   ],
   "dependencies": {
-    "lstat-dir": "^0.3.0"
+    "lstat-dir": "^0.4.0"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^3.0.0",
-    "eslint": "^3.17.1",
+    "eslint": "^3.18.0",
     "istanbul": "^0.4.5",
     "tape": "^4.6.3"
   },
