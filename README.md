@@ -17,14 +17,6 @@ enumerateFiles('./node_modules/enumerate-files/').then(files => {
     '/Users/example/node_modules/index.js',
     '/Users/example/node_modules/package.json'
   } */
-
-  const iterator = files.keys();
-
-  iterator.next().value; //=> '/Users/example/project/LICENSE'
-  iterator.next().value; //=> '/Users/example/project/README.md'
-  iterator.next().value; //=> '/Users/example/project/index.js'
-  iterator.next().value; //=> '/Users/example/project/package.json'
-  iterator.next().value; //=> undefined
 });
 ```
 
@@ -42,12 +34,36 @@ npm install enumerate-files
 const enumerateFiles = require('enumerate-files');
 ```
 
-### enumerateFiles(*dir*)
+### enumerateFiles(*dir* [, *options*])
 
 *dir*: `String` (directory path)  
+*options*: `Object`  
 Return: `Promise<Set>`
 
 The promise will be fulfilled with a [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set) of strings — absolute paths of all *files* included in a given directory. Symbolic links and directories are excluded.
+
+Options are directly passed to the underlying [`readdir-sorted`](https://github.com/shinnn/readdir-sorted#readdirsortedpath--options) to control the order of results.
+
+```javascript
+enumerateFiles('/dir').then(files => {
+  const iterator = files.keys();
+
+  iterator.next().value; //=> '/dir/10.js'
+  iterator.next().value; //=> '/dir/2a.js'
+  iterator.next().value; //=> '/dir/2A.js'
+});
+
+enumerateFiles('/dir', {
+  numeric: true,
+  caseFirst: 'upper'
+}).then(files => {
+  const iterator = files.keys();
+
+  iterator.next().value; //=> '/dir/2A.js'
+  iterator.next().value; //=> '/dir/2a.js'
+  iterator.next().value; //=> '/dir/10.js'
+});
+```
 
 ## License
 
