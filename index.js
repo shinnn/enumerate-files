@@ -6,7 +6,8 @@
 
 const lstatDir = require('lstat-dir');
 
-function filterFiles(map) {
+module.exports = async function enumerateFiles(...args) {
+  const map = await lstatDir(...args);
   const filePaths = new Set();
 
   for (const [path, stat] of map) {
@@ -16,8 +17,4 @@ function filterFiles(map) {
   }
 
   return filePaths;
-}
-
-module.exports = function enumerateFiles(...args) {
-  return lstatDir(...args).then(filterFiles);
 };
