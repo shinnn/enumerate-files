@@ -20,6 +20,7 @@ test('enumerateFiles()', t => {
       '.travis.yml',
       'index.js',
       'LICENSE',
+      'package-lock.json',
       'package.json',
       'README.md',
       'test.js'
@@ -27,11 +28,11 @@ test('enumerateFiles()', t => {
   }).catch(t.fail);
 
   enumerateFiles('not-found').catch(err => {
-    t.strictEqual(err.code, 'ENOENT', 'should fail when it cannot find the directory.');
+    t.equal(err.code, 'ENOENT', 'should fail when it cannot find the directory.');
   });
 
   enumerateFiles(__dirname, {caseFirst: /^/}).catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       'TypeError: Expected `caseFirst` option to be one of \'upper\', \'lower\', or \'false\', but got /^/ (regexp).',
       'should fail when it takes an invalid option.'
@@ -39,7 +40,7 @@ test('enumerateFiles()', t => {
   });
 
   enumerateFiles([0, 1]).catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       'TypeError: Expected a directory path (string), but got [ 0, 1 ] (array).',
       'should fail when it takes a non-string argument.'
@@ -47,7 +48,7 @@ test('enumerateFiles()', t => {
   });
 
   enumerateFiles().catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got no arguments.',
       'should fail when it takes no arguments.'
@@ -55,7 +56,7 @@ test('enumerateFiles()', t => {
   });
 
   enumerateFiles('a', {}, 'b').catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got 3 arguments.',
       'should fail when it takes too many arguments.'
