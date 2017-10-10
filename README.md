@@ -1,6 +1,6 @@
 # enumerate-files
 
-[![NPM version](https://img.shields.io/npm/v/enumerate-files.svg)](https://www.npmjs.com/package/enumerate-files)
+[![npm version](https://img.shields.io/npm/v/enumerate-files.svg)](https://www.npmjs.com/package/enumerate-files)
 [![Build Status](https://travis-ci.org/shinnn/enumerate-files.svg?branch=master)](https://travis-ci.org/shinnn/enumerate-files)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/enumerate-files.svg)](https://coveralls.io/github/shinnn/enumerate-files?branch=master)
 
@@ -67,6 +67,4 @@ enumerateFiles('/dir', {
 
 ## License
 
-Copyright (c) 2017 [Shinnosuke Watanabe](https://github.com/shinnn)
-
-Licensed under [the MIT License](./LICENSE).
+[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
