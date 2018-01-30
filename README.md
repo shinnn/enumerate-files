@@ -22,7 +22,7 @@ enumerateFiles('./node_modules/enumerate-files/').then(files => {
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
 ```
 npm install enumerate-files
@@ -36,9 +36,9 @@ const enumerateFiles = require('enumerate-files');
 
 ### enumerateFiles(*dir* [, *options*])
 
-*dir*: `String` (directory path)  
+*dir*: `string` `Buffer` `URL` (directory path)  
 *options*: `Object`  
-Return: `Promise<Set>`
+Return: `Promise<Set<string>>`
 
 The promise will be fulfilled with a [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set) of strings — absolute paths of all *files* included in a given directory. Symbolic links and directories are excluded.
 
@@ -46,7 +46,7 @@ Options are directly passed to the underlying [`readdir-sorted`](https://github.
 
 ```javascript
 enumerateFiles('/dir').then(files => {
-  const iterator = files.keys();
+  const iterator = files[Symbol.iterator]();
 
   iterator.next().value; //=> '/dir/10.js'
   iterator.next().value; //=> '/dir/2a.js'
@@ -57,7 +57,7 @@ enumerateFiles('/dir', {
   numeric: true,
   caseFirst: 'upper'
 }).then(files => {
-  const iterator = files.keys();
+  const iterator = files[Symbol.iterator]();
 
   iterator.next().value; //=> '/dir/2A.js'
   iterator.next().value; //=> '/dir/2a.js'
@@ -67,4 +67,4 @@ enumerateFiles('/dir', {
 
 ## License
 
-[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
