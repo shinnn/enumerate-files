@@ -1,15 +1,17 @@
 'use strict';
 
+const {isSet} = require('util').types;
+const {pathToFileURL} = require('url');
 const {resolve} = require('path');
-const {URL} = require('url');
 
 const enumerateFiles = require('.');
-const fileUrl = require('file-url');
 const test = require('tape');
 
 test('enumerateFiles()', async t => {
 	const files = await enumerateFiles('.');
-	t.ok(files instanceof Set, 'should be fulfilled with a Set instance.');
+
+	t.ok(isSet(files), 'should be fulfilled with a Set instance.');
+
 	files.delete(resolve('.DS_Store'));
 	t.deepEqual([...files], [
 		'.editorconfig',
@@ -34,28 +36,56 @@ test('enumerateFiles()', async t => {
 	}
 
 	try {
-		await enumerateFiles(new URL(fileUrl(__filename)));
+		await enumerateFiles(pathToFileURL(__filename));
 		fail();
 	} catch ({code}) {
 		t.equal(code, 'ENOTDIR', 'should fail when it the target is not a directory.');
 	}
 
-	try {
-		await enumerateFiles(__dirname, {caseFirst: /^/});
-		fail();
-	} catch (err) {
-		t.equal(
-			err.toString(),
-			'TypeError: Expected `caseFirst` option to be one of \'upper\', \'lower\', or \'false\', but got /^/ (regexp).',
-			'should fail when it takes an invalid option.'
-		);
-	}
+	t.end();
+});
+
+test('Argument validation', async t => {
+	const fail = t.fail.bind(t, 'Unexpectedly succeeded.');
 
 	try {
 		await enumerateFiles([0, 1]);
 		fail();
-	} catch ({name}) {
-		t.equal(name, 'TypeError', 'should fail when it takes a non-string argument.');
+	} catch ({code}) {
+		t.equal(code, 'ERR_INVALID_ARG_TYPE', 'should fail when it takes an invalid path type.');
+	}
+
+	try {
+		await enumerateFiles(__dirname, new Int32Array());
+		fail();
+	} catch (err) {
+		t.equal(
+			err.toString(),
+			'TypeError: Expected a plain <Object> to set readdir-sorted options, but got Int32Array [].',
+			'should fail when it takes a non-plain object options.'
+		);
+	}
+
+	try {
+		await enumerateFiles(__dirname, {withFileTypes: false});
+		fail();
+	} catch (err) {
+		t.equal(
+			err.toString(),
+			'Error: `withFileTypes` option is not supported, but a value false was provided for it.',
+			'should fail when it takes `withFileTypes` option.'
+		);
+	}
+
+	try {
+		await enumerateFiles(__dirname, {caseFirst: /^/u});
+		fail();
+	} catch (err) {
+		t.equal(
+			err.toString(),
+			'TypeError: Expected `caseFirst` option to be one of \'upper\', \'lower\', or \'false\', but got /^/u (regexp).',
+			'should fail when it takes an invalid option.'
+		);
 	}
 
 	try {
