@@ -1,6 +1,6 @@
 {
 	"name": "enumerate-files",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "List all files in a given directory",
 	"repository": "shinnn/enumerate-files",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
