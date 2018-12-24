@@ -38,9 +38,9 @@ const enumerateFiles = require('enumerate-files');
 
 *dir*: `string` `Buffer` `Uint8Array` `URL` (directory path)  
 *options*: `Object`  
-Return: `Promise<Set<string>>`
+Return: `Promise<Set<string|Buffer>>`
 
-The returned promise is fulfilled with a [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set) of `string`s — absolute paths of all *files* included in a given directory. Symbolic links and directories are excluded.
+The returned promise is fulfilled with a [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set) of `string`s or `Buffer`s — absolute paths of all *files* included in a given directory. Symbolic links and directories are excluded.
 
 Every options except for `withFileTypes` are directly passed to the underlying [`readdir-sorted`](https://github.com/shinnn/readdir-sorted#readdirsortedpath--options).
 
@@ -56,12 +56,13 @@ Every options except for `withFileTypes` are directly passed to the underlying [
 (async () => {
   const iterator = (await enumerateFiles('/dir', {
     numeric: true,
-    caseFirst: 'upper'
+    caseFirst: 'upper',
+    encoding: 'buffer'
   })).values();
 
-  iterator.next().value; //=> '/dir/2A.js'
-  iterator.next().value; //=> '/dir/2a.js'
-  iterator.next().value; //=> '/dir/10.js'
+  iterator.next().value; //=> Buffer.from('/dir/2A.js')
+  iterator.next().value; //=> Buffer.from('/dir/2a.js')
+  iterator.next().value; //=> Buffer.from('/dir/10.js')
 })();
 ```
 
