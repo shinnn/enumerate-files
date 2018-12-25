@@ -1,6 +1,6 @@
 {
 	"name": "enumerate-files",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "List all files in a given directory",
 	"repository": "shinnn/enumerate-files",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
@@ -30,8 +30,8 @@
 		"readdir-sorted": "^2.1.0"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.8.7",
-		"eslint": "^5.10.0",
+		"@shinnn/eslint-config": "^6.8.8",
+		"eslint": "^5.11.0",
 		"nyc": "^13.1.0",
 		"nyc-config-common": "^1.0.1",
 		"tape": "^4.9.1"
